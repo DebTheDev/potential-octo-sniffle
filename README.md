@@ -4,6 +4,9 @@
 > The software is used only by restaurant personnel when a customer calls to request a reservation.
 > At this point, the customers will not access the system online.
 
+### Built With
+ <img alt="NodeJS" src="https://img.shields.io/badge/node.js-%2343853D.svg?style=for-the-badge&logo=node-dot-js&logoColor=white"/> <img alt="JavaScript" src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/> <img alt="HTML5" src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"/> <img alt="CSS3" src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"/> <img alt="React" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/> <img alt="Bootstrap" src="https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white"/> <img alt="Visual Studio Code" src="https://img.shields.io/badge/VisualStudioCode-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white"/> <img alt="Git" src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white"/> <img alt="Jest" src="https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white"/> <img alt="Windows 10" src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" />
+
 
 ## Existing files
 
@@ -118,6 +121,24 @@ LOG_LEVEL=info
 REACT_APP_API_BASE_URL=http://localhost:5000
 ```
 
+## API Documentation:
+
+| Route                               | Method | Status Code |  Description                                                        |
+| ----------------------------------- | ------ | ----------- | ------------------------------------------------------------------- |
+| /reservations                       | GET    | 200         | Returns a list of reservations for the current data                 |
+| /reservations?date=####-##-##       | GET    | 200         | Returns a list of reservations for the given data                   |
+| /reservations                       | POST   | 201         | Creates a new reservation                                           |
+| /reservations/:reservation_id       | GET    | 200         | Returns the reservation for the given ID                            |
+| /reservations/:reservation_id       | PUT    | 200         | Updates the reservation for the given ID                            |
+| /reservations/:resevation_id/status | PUT    | 200         | Updates the status of the reservation for the given ID              | 
+| /tables                             | GET    | 200         | Returns a list of tables                                            | 
+| /tables                             | POST   | 201         | Create a new table                                                  | 
+| /tables/:table_id                   | GET    | 200         | Returns the table for the given ID                                  | 
+| /tables/:table_id/seat              | PUT    | 200         | Seats a resevation at the given table_id                            | 
+| /tables/:table_id/seat              | DELETE | 200         | Changes the occupied status to be unoccupied for the given table_id |           
+
+------------------------------------------------------------------------------------------------------------------------------------
+
 ## Running tests
 
 This project has unit, integration, and end-to-end (e2e) tests. You have seen unit and integration tests in previous projects.
@@ -162,24 +183,6 @@ Note that the logging level for the backend is set to `warn` when running tests 
 Running the frontend tests on a resource constrained computer may result in timeout failures.
 
 If you believe your implementation is correct, but needs a bit more time to finish, you can update the `testTimeout` value in `front-end/e2e/jest.config.js`. A value of 10000 or even 12000 will give each test a few more seconds to complete.
-
-## API Documentation:
-
-| Route                               | Method | Status Code |  Description                                                        |
-| ----------------------------------- | ------ | ----------- | ------------------------------------------------------------------- |
-| /reservations                       | GET    | 200         | Returns a list of reservations for the current data                 |
-| /reservations?date=####-##-##       | GET    | 200         | Returns a list of reservations for the given data                   |
-| /reservations                       | POST   | 201         | Creates a new reservation                                           |
-| /reservations/:reservation_id       | GET    | 200         | Returns the reservation for the given ID                            |
-| /reservations/:reservation_id       | PUT    | 200         | Updates the reservation for the given ID                            |
-| /reservations/:resevation_id/status | PUT    | 200         | Updates the status of the reservation for the given ID              | 
-| /tables                             | GET    | 200         | Returns a list of tables                                            | 
-| /tables                             | POST   | 201         | Create a new table                                                  | 
-| /tables/:table_id                   | GET    | 200         | Returns the table for the given ID                                  | 
-| /tables/:table_id/seat              | PUT    | 200         | Seats a resevation at the given table_id                            | 
-| /tables/:table_id/seat              | DELETE | 200         | Changes the occupied status to be unoccupied for the given table_id |           
-
-------------------------------------------------------------------------------------------------------------------------------------
 
 
 ## Product Backlog
@@ -405,8 +408,5 @@ so that reservations are accurate and current.
    - Clicking "Cancel" makes no changes, then display the previous page.
 ![### US-08 Change an existing reservation](https://user-images.githubusercontent.com/70423522/119863155-463c1e80-bee7-11eb-8ec4-aadc3ff90d4f.gif)
 
-
-### Built With
- <img alt="NodeJS" src="https://img.shields.io/badge/node.js-%2343853D.svg?style=for-the-badge&logo=node-dot-js&logoColor=white"/> <img alt="JavaScript" src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/> <img alt="HTML5" src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"/> <img alt="CSS3" src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"/> <img alt="React" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/> <img alt="Bootstrap" src="https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white"/> <img alt="Visual Studio Code" src="https://img.shields.io/badge/VisualStudioCode-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white"/> <img alt="Git" src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white"/> <img alt="Jest" src="https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white"/> <img alt="Windows 10" src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" />
 
 
