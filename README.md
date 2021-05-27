@@ -78,6 +78,7 @@ The table below describes the existing files in the `./front-end` folder:
 
 Run `npx knex` commands from within the `back-end` folder, which is where the `knexfile.js` file is located.
 
+
 ## Installation
 
 1. Fork and clone this repository.
@@ -89,6 +90,33 @@ Run `npx knex` commands from within the `back-end` folder, which is where the `k
 1. Run `npm run start:dev` to start your server in development mode.
 
 
+## Instructions:
+
+Install dependencies in terminal with
+
+```js
+npm install
+```
+
+Start server 
+
+```js
+npm start
+```
+
+Lastly you will create a database to store all the reservation data. This will require a .env file:
+
+```js
+// back-end .env example -> Connects to database
+DATABASE_URL=enter-your-production-database-url-here
+DATABASE_URL_DEVELOPMENT=enter-your-development-database-url-here
+DATABASE_URL_TEST=enter-your-test-database-url-here
+DATABASE_URL_PREVIEW=enter-your-preview-database-url-here
+LOG_LEVEL=info
+
+// front-end .env example -> Connects to server
+REACT_APP_API_BASE_URL=http://localhost:5000
+```
 
 ## Running tests
 
@@ -135,8 +163,23 @@ Running the frontend tests on a resource constrained computer may result in time
 
 If you believe your implementation is correct, but needs a bit more time to finish, you can update the `testTimeout` value in `front-end/e2e/jest.config.js`. A value of 10000 or even 12000 will give each test a few more seconds to complete.
 
-#### Screenshots
+## API Documentation:
 
+| Route                               | Method | Status Code |  Description                                                        |
+| ----------------------------------- | ------ | ----------- | ------------------------------------------------------------------- |
+| /reservations                       | GET    | 200         | Returns a list of reservations for the current data                 |
+| /reservations?date=####-##-##       | GET    | 200         | Returns a list of reservations for the given data                   |
+| /reservations                       | POST   | 201         | Creates a new reservation                                           |
+| /reservations/:reservation_id       | GET    | 200         | Returns the reservation for the given ID                            |
+| /reservations/:reservation_id       | PUT    | 200         | Updates the reservation for the given ID                            |
+| /reservations/:resevation_id/status | PUT    | 200         | Updates the status of the reservation for the given ID              | 
+| /tables                             | GET    | 200         | Returns a list of tables                                            | 
+| /tables                             | POST   | 201         | Create a new table                                                  | 
+| /tables/:table_id                   | GET    | 200         | Returns the table for the given ID                                  | 
+| /tables/:table_id/seat              | PUT    | 200         | Seats a resevation at the given table_id                            | 
+| /tables/:table_id/seat              | DELETE | 200         | Changes the occupied status to be unoccupied for the given table_id |           
+
+------------------------------------------------------------------------------------------------------------------------------------
 
 
 ## Product Backlog
