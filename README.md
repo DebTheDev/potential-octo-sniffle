@@ -4,9 +4,6 @@
 > The software is used only by restaurant personnel when a customer calls to request a reservation.
 > At this point, the customers will not access the system online.
 
-There are no user stories for deployment: it is expected that you will deploy the application to production after you finish a user story.
-
-There are no user stories for logging: it is expected that you will add logging to the application with enough detail to help you diagnose issues in production.
 
 ## Existing files
 
@@ -23,7 +20,7 @@ The table below describes the folders in this starter repository:
 
 This starter code closely follows the best practices and patterns established in the Robust Server Structure module.
 
-**Note**: Please do not submit a pull request to this repository with your solution.
+
 
 ### Backend Existing files
 
@@ -91,7 +88,7 @@ Run `npx knex` commands from within the `back-end` folder, which is where the `k
 1. Run `npm install` to install project dependencies.
 1. Run `npm run start:dev` to start your server in development mode.
 
-If you have trouble getting the server to run, reach out for assistance.
+
 
 ## Running tests
 
@@ -140,11 +137,7 @@ If you believe your implementation is correct, but needs a bit more time to fini
 
 #### Screenshots
 
-To help you better understand what might be happening during the end-to-end tests, screenshots are taken at various points in the test.
 
-The screenshots are saved in `front-end/.screenshots` and you can review them after running the end-to-end tests.
-
-You can use the screenshots to debug your code by rendering additional information on the screen.
 
 ## Product Backlog
 
@@ -178,47 +171,20 @@ so that I know how many customers will arrive at the restaurant on a given day.
 1. The `/reservations` API will have the same validations as above and will return 400, along with an informative error message, when a validation error happens.
    - seed the reservations table with the data contained in `./back-end/src/db/seeds/00-reservations.json`
 
-> **Hint** Dates and times in JavaScript and databases can be challenging.
->
+
+
 > The users have confirmed that they will be using Chrome to access the site. This means you can use `<input type="date" />` and `<input type="time" />`, which are supported by Chrome but may not work in other browsers.
 >
 > `<input type="date" />` will store the date in `YYYY-MM-DD` format. This is a format that works well with the PostgreSQL `date` data type.
 >
 > `<input type="time" />` will store the time in `HH:MM:SS` format. This is a format that works well with the PostgreSQL `time` data type.
 >
-> **Optional** If you want to add support to other browsers such as Safari or IE, you can use the pattern and placeholder attributes along with the date and time inputs in your form. For the date input you can use `<input type="date" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}"/>`, and for the time input you can use `<input type="time" placeholder="HH:MM" pattern="[0-9]{2}:[0-9]{2}"/>`. You can read more about handling browser support [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date#handling_browser_support).
->
-> You can assume that all dates and times will be in your local time zone.
 
-> **Hint** In the backend code, be sure to wrap any async controller functions in an `asyncErrorBoundary` call to ensure errors in async code are property handled.
 
-In `back-end/src/errors/asyncErrorBoundary.js`
+![Animation](https://user-images.githubusercontent.com/70423522/119859182-2571ca00-bee3-11eb-89bc-6718531d8b02.gif)
+![image](https://user-images.githubusercontent.com/70423522/119859091-0ecb7300-bee3-11eb-9114-ee6438c83ef6.png)
 
-```javascript
-function asyncErrorBoundary(delegate, defaultStatus) {
-  return (request, response, next) => {
-    Promise.resolve()
-      .then(() => delegate(request, response, next))
-      .catch((error = {}) => {
-        const { status = defaultStatus, message = error } = error;
-        next({
-          status,
-          message,
-        });
-      });
-  };
-}
 
-module.exports = asyncErrorBoundary;
-```
-
-Use in controllers as part of `module.exports`. For example:
-
-```javascript
-module.exports = {
-	create: asyncErrorBoundary(create)
-}
-```
 
 ### US-02 Create reservation on a future, working date
 
@@ -244,6 +210,9 @@ so that users do not accidentally create a reservation for days when we are clos
 >
 > While there is nothing preventing you from using a third party library to handle dates for your project, you are encouraged to use the built-in Date class.
 
+![image](https://user-images.githubusercontent.com/70423522/119860526-67e7d680-bee4-11eb-8c13-49301d2b06c2.png)
+
+
 ### US-03 Create reservation within eligible timeframe
 
 As a restaurant manager<br/>
@@ -258,7 +227,7 @@ so that users do not accidentally create a reservation for a time we cannot acco
    - The reservation date and time combination is in the past. Only future reservations are allowed. E.g., if it is noon, only allow reservations starting _after_ noon today.
 1. The `/reservations` API will have the same validations as above and will return 400, along with an informative error message, when a validation error happens.
 
-> **Hint** Parsing a Date that includes the time in JavaScript can be tricky. Again, keep an eye out for which time zone is being used for your Dates.
+![image](https://user-images.githubusercontent.com/70423522/119860988-e3498800-bee4-11eb-8097-e46dd2d38144.png)
 
 ### US-04 Seat reservation
 
@@ -298,14 +267,7 @@ so that I know which tables are occupied and free.
    - `#1` & `#2`, each with a capacity of 6.
 1. The `/tables` API will have the same validations as above and will return 400, along with an informative error message, when a validation error happens.
 
-- if the table capacity is less than the number of people in the reservation, return 400 with an error message.
-- if the table is occupied, return 400 with an error message.
-
-> **Hint** Work through the acceptance criteria in the order listed, step-by-step. A different order may be more challenging.
-
-> **Hint** Seed the `tables` table in a similar way as it's done with the `reservations` table.
-
-> **Hint** Add a `reservation_id` column in the `tables` table. Use the `.references()` and `inTable()` knex functions to add the foreign key reference.
+![image](https://user-images.githubusercontent.com/70423522/119862099-27895800-bee6-11eb-8dda-ca716fc7ad94.png)
 
 ### US-05 Finish an occupied table
 
@@ -341,7 +303,7 @@ so that I can see which reservation parties are seated, and finished reservation
 
 > **Hint** You can add a field to a table in a migration `up` method by defining a new column. E.g. `table.string("last_name", null).notNullable();` will create a new last_name column.  Be sure to remove the column in the `down` function using `dropColumn()`. E.g. `table.dropColumn("last_name");`
 
-> **Hint** Use [`Knex.transaction()`](http://knexjs.org/#Transactions) to make sure the `tables` and `reservations` records are always in sync with each other.
+![image](https://user-images.githubusercontent.com/70423522/119862524-9961a180-bee6-11eb-974c-fa995e54a958.png)
 
 ### US-07 Search for a reservation by phone number
 
@@ -374,6 +336,7 @@ so that I can quickly access a customer's reservation when they call about their
 >     .orderBy("reservation_date");
 > }
 > ```
+![image](https://user-images.githubusercontent.com/70423522/119862417-7cc56980-bee6-11eb-95f2-e37d9430966e.png)
 
 ### US-08 Change an existing reservation
 
@@ -397,5 +360,10 @@ so that reservations are accurate and current.
    - Only reservations with a status of "booked" can be edited.
    - Clicking the "Submit" button will save the reservation, then displays the previous page.
    - Clicking "Cancel" makes no changes, then display the previous page.
+![### US-08 Change an existing reservation](https://user-images.githubusercontent.com/70423522/119863155-463c1e80-bee7-11eb-8ec4-aadc3ff90d4f.gif)
 
-> **Hint** The same validation used for create applies to editing a reservation. The form and the API for updating a reservation must not allow the user to violate any of the rules specified when creating a reservation.
+
+### Built With
+ <img alt="NodeJS" src="https://img.shields.io/badge/node.js-%2343853D.svg?style=for-the-badge&logo=node-dot-js&logoColor=white"/> <img alt="JavaScript" src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/> <img alt="HTML5" src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"/> <img alt="CSS3" src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"/> <img alt="React" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/> <img alt="Bootstrap" src="https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white"/> <img alt="Visual Studio Code" src="https://img.shields.io/badge/VisualStudioCode-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white"/> <img alt="Git" src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white"/> <img alt="Jest" src="https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white"/> <img alt="Windows 10" src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" />
+
+
