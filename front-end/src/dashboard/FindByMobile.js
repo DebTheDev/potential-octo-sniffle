@@ -43,7 +43,7 @@ export default function FindByMobile() {
         </button>
         {reservations.length ? (
           reservations.map((reservation, index) => (
-            <Reservation reservation={reservation} key={index} />
+            <Reservation reservation={reservation} key={reservation.reservation_id} />
           ))
         ) : (
           <h5 className='text-white mt-3'>No reservations found</h5>

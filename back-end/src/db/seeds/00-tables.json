@@ -1,11 +1,11 @@
  [
     {
       "table_name": "#1",
-      "capacity": "24"
+      "capacity": "6"
     },
     {
       "table_name": "#2",
-      "capacity": "8"
+      "capacity": "6"
     },
     {
       "table_name": "Bar #1",
@@ -13,6 +13,6 @@
     },
     {
       "table_name": "Bar #2",
-      "capacity":" 12"
+      "capacity":" 1"
     }
   ]
