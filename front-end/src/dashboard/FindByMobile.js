@@ -8,59 +8,47 @@ import Reservation from "./Reservation";
  * @returns {JSX.Element}
  */
 export default function FindByMobile() {
-  const [mobile_number, setMobileNumber] = useState("");
-  const [reservations, setReservations] = useState([]);
-  const [reservationsError, setReservationsError] = useState(null);
+  const [reservations, setReservations] = useState([])
+  const [input, setInput] = useState('')
+  const [errors, setErrors] = useState(null)
 
-  const reservationsContent = reservations.map((reservation, index) => {
-    return <Reservation reservation={reservation} key={index} />;
-  });
+  const onChange = (e) => setInput(e.target.value)
 
-  const handleChange = (e) => setMobileNumber(e.target.value);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-
-    const abortController = new AbortController();
-
-    listReservations({ mobile_number }, abortController.signal)
+  const onSubmit = (e) => {
+    e.preventDefault()
+    const abortController = new AbortController()
+    listReservations({ mobile_number: input }, abortController.signal)
       .then(setReservations)
-      .then(() =>
-        reservationsContent.length === 0
-          ? setReservationsError({ message: "No reservations found" })
-          : setReservationsError(null)
-      )
-      .catch(setReservationsError);
-  };
+      .catch((err) => {
+        setErrors({ message: err.message })
+      })
+  }
 
   return (
-    <>
-      <h2 className="text-center pb-2">Search for Reservation</h2>
-      <div className="d-flex flex-column align-items-center">
-        <form onSubmit={handleSearch} className="mt-3 w-50 text-center">
-          <div className="form-group">
-            <input
-              name="mobile_number"
-              placeholder="Enter a customer's phone number"
-              onChange={handleChange}
-              className="form-control"
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn btn-primary mb-5">
-            Find
-          </button>
-        </form>
-        {reservationsContent.length !== 0 ? <h3>Reservations</h3> : ""}
-        {reservationsContent.length === 0 ? (
-          <ErrorAlert error={reservationsError} />
-        ) : (
-          ""
-        )}
-        <div className="d-flex justify-content-center flex-wrap mb-5">
-          {reservationsContent}
+    <div className='row justify-content-center'>
+      <form className='col-lg-10' onSubmit={onSubmit}>
+        <h1 className='text-center py-4'>Search Reservations</h1>
+
+        <ErrorAlert error={errors} />
+        <div className='form-group'>
+          <label htmlFor='mobile_number'>Search by mobile number</label>
+          <input
+            name='mobile_number'
+            className='form-control'
+            onChange={onChange}
+          />
         </div>
-      </div>
-    </>
-  );
+        <button className='btn btn-dark' type='submit'>
+          Find
+        </button>
+        {reservations.length ? (
+          reservations.map((reservation, index) => (
+            <Reservation reservation={reservation} key={index} />
+          ))
+        ) : (
+          <h5 className='text-white mt-3'>No reservations found</h5>
+        )}
+      </form>
+    </div>
+  )
 }

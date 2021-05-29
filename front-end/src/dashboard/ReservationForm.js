@@ -53,7 +53,7 @@ export default function ReservationForm({ type }) {
     try {
       if (newDate.getDay() === 2)
         throw new Error("Restaurant is closed on Tuesdays!");
-      if (newDate < currentDay) throw new Error("Fellow time traveler eh!");
+      if (newDate < currentDay) throw new Error("Cannot schedule for the past");
       //check if reservation time is within working hours
       let time = Number(formData.reservation_time.replace(":", ""));
       if (time < 1030 || time > 2130)
